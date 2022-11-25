@@ -36,6 +36,7 @@ namespace project.Controllers
             //Models.project pp =
             //    (from a in context.Projects join c in context.Tasks on a.projectId equals c.projectId select a)
             //    .SingleOrDefault();
+            return View("Details", pro);
         }
 
         [HttpPost]
