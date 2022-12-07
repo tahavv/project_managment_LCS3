@@ -1,5 +1,8 @@
-﻿using project.Models;
+﻿using Microsoft.AspNet.Identity;
+using project.Models;
+using System;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -25,7 +28,7 @@ namespace project.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tasks tasks = db.Tasks.Find(id);
+            tasks tasks = db.Tasks.Include(p => p.project).Include(u => u.user).SingleOrDefault(t => t.taskId == id);
             if (tasks == null)
             {
                 return HttpNotFound();
@@ -34,6 +37,7 @@ namespace project.Controllers
         }
 
         // GET: tasks/Create
+        [Authorize(Roles = "admin")]
         public ActionResult Create()
         {
             ViewBag.projectId = new SelectList(db.Projects, "projectId", "name");
@@ -46,7 +50,8 @@ namespace project.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "taskId,name,description,startDate,endDate,workflow,type,projectId,userId")] tasks tasks)
+        [Authorize(Roles = "admin")]
+        public ActionResult Create([Bind(Include = "taskId,name,description,startDate,endDate,workflow,type,projectId")] tasks tasks)
         {
             if (ModelState.IsValid)
             {
@@ -61,6 +66,7 @@ namespace project.Controllers
         }
 
         // GET: tasks/Edit/5
+        [Authorize(Roles = "admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -82,6 +88,7 @@ namespace project.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public ActionResult Edit([Bind(Include = "taskId,name,description,startDate,endDate,workflow,type,projectId,userId")] tasks tasks)
         {
             if (ModelState.IsValid)
@@ -96,6 +103,7 @@ namespace project.Controllers
         }
 
         // GET: tasks/Delete/5
+        [Authorize(Roles = "admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -113,6 +121,7 @@ namespace project.Controllers
         // POST: tasks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             tasks tasks = db.Tasks.Find(id);
@@ -128,6 +137,26 @@ namespace project.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult SelectTask(int id)
+        {
+            String currentUserId = User.Identity.GetUserId();
+            ApplicationUser user = db.Users.Find(currentUserId);
+            tasks task = db.Tasks.SingleOrDefault(t => t.taskId == id);
+
+            if (task.userId == null)
+            {
+                task.user = user;
+                db.Tasks.AddOrUpdate(task);
+                db.SaveChanges();
+            }
+            else
+            {
+                ViewBag.SelectErreur = "Task" + id + " already taken by " + user.UserName;
+            }
+
+            return View("Details", task);
         }
     }
 }

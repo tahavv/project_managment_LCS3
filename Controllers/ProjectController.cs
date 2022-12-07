@@ -32,10 +32,11 @@ namespace project.Controllers
 
         public ActionResult Details(int id)
         {
-            Models.project pro = context.Projects.SingleOrDefault(p => p.projectId == id);
+            //Models.project pro = context.Projects.SingleOrDefault(p => p.projectId == id);
             //Models.project pp =
             //    (from a in context.Projects join c in context.Tasks on a.projectId equals c.projectId select a)
             //    .SingleOrDefault();
+            Models.project pro = context.Projects.Include(t => t.tasks).SingleOrDefault(p => p.projectId == id);
             return View("Details", pro);
         }
 

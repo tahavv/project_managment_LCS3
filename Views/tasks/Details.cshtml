@@ -1,83 +1,86 @@
 ﻿@model project.Models.tasks
 
 @{
-    ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Details";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Details</h2>
 
 <div>
-    <h4>tasks</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.project.name)
-        </dt>
+	<h4>tasks</h4>
+	<hr />
+	<dl class="dl-horizontal">
+		<dt>
+			Project Name :
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.project.name)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.project.name)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.user.FirstName)
-        </dt>
+		<dt>
+			User Name :
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.user.FirstName)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.user.UserName)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
+		<dt>
+			Task Name :
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.name)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.description)
-        </dt>
+		<dt>
+			Description :
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.description)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.description)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.startDate)
-        </dt>
+		<dt>
+			Start Date :
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.startDate)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.startDate)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.endDate)
-        </dt>
+		<dt>
+			End Date :
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.endDate)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.endDate)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.workflow)
-        </dt>
+		<dt>
+			Status :
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.workflow)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.workflow)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.type)
-        </dt>
+		<dt>
+			Task Type:
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.type)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.type)
+		</dd>
 
-    </dl>
+	</dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.taskId }) |
-    @Html.ActionLink("Back to List", "Index")
+	@Html.ActionLink("Edit", "Edit", new { id = Model.taskId }) |
+	@Html.ActionLink("Back to List", "Index")
 </p>
+<div class="alert alert-danger" role="alert">
+	@ViewBag.SelectErreur
+</div>
