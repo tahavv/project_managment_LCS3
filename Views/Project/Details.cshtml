@@ -1,4 +1,5 @@
 ﻿@using System.Activities.Expressions
+@using Microsoft.Ajax.Utilities
 @model project.Models.project
 
 @{
@@ -46,25 +47,36 @@
 
 	</dl>
 
-	<table class="table">
-		<tr>
-			<th>name</th>
-			<th>Name</th>
-			<th>Name</th>
-			<th>Name</th>
-			<th>Name</th>
-		</tr>
-		@for (var i = 0; i < Model.tasks.Count; i++)
-		{
-			<td>
-				<th>@Html.DisplayFor(model => model.tasks[i].name)</th>
-				<th>@Html.DisplayFor(model => model.tasks[i].description)</th>
-				<th>@Html.DisplayFor(model => model.tasks[i].startDate)</th>
-				<th>@Html.DisplayFor(model => model.tasks[i].endDate)</th>
-				<th>@Html.DisplayFor(model => model.tasks[i].workflow)</th>
-			</td>
-		}
-	</table>
+	@if (!Model.tasks.Any())
+	{
+		<div class="alert alert-warning" role="alert">
+			<i class="bi bi-exclamation-triangle"></i>
+			No task found!
+		</div>
+	}
+	else
+	{
+		<table class="table">
+			<tr>
+				<th>Name</th>
+				<th>Description</th>
+				<th>Start Date</th>
+				<th>End date</th>
+				<th>State</th>
+			</tr>
+
+			@foreach (var item in Model.tasks)
+			{
+				<tr>
+					<td>@Html.DisplayFor(modelItem => item.name)</td>
+					<td>@Html.DisplayFor(modelItem => item.description)</td>
+					<td>@Html.DisplayFor(modelItem => item.startDate)</td>
+					<td>@Html.DisplayFor(modelItem => item.endDate)</td>
+					<td>@Html.DisplayFor(modelItem => item.workflow)</td>
+				</tr>
+			}
+		</table>
+	}
 </div>
 <p>
 	@Html.ActionLink("Edit", "Edit", new { id = Model.projectId }) |
