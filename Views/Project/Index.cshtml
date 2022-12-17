@@ -1,46 +1,28 @@
 ﻿@model IEnumerable<project.Models.project>
-
 @{
-	ViewBag.Title = "Index";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+	Layout = "~/Views/Shared/_Layout.cshtml"; ;
 }
+@Styles.Render("~/Content/card.css")
 
-<h2>Index</h2>
-
+<h2>Projects</h2>
 <p>
 	@Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-	<tr>
-		<th>
-			Name
-		</th>
-		<th>
-			Description
-		</th>
-		<th>
-			End Date
-		</th>
-		<th></th>
-	</tr>
-
-@foreach (var item in Model) {
-	<tr>
-		<td>
-			@Html.DisplayFor(modelItem => item.name)
-		</td>
-		<td>
-			@Html.DisplayFor(modelItem => item.description)
-		</td>
-		<td>
-			@Html.DisplayFor(modelItem => item.endDate)
-		</td>
-		<td>
-			@Html.ActionLink("Edit", "Edit", new { id=item.projectId }) |
-			@Html.ActionLink("Details", "Details", new { id=item.projectId }) |
-			@Html.ActionLink("Delete", "Delete", new { id=item.projectId })
-		</td>
-	</tr>
-}
-
-</table>
+<div class="container">
+	<main class="grid">
+		@foreach (var item in Model)
+		{
+			<article>
+				<div class="text">
+					<h1>@Html.DisplayFor(modelItem => item.name)</h1>
+					<h5 class="text-muted">End Date : @Html.DisplayFor(modelItem => item.endDate)</h5>
+					<p>@Html.DisplayFor(modelItem => item.description)</p>
+					<button type="button" class="btn btn-outline-primary">@Html.ActionLink("Edit", "Edit", new { id = item.projectId })</button>
+					<button type="button" class="btn btn-outline-info">@Html.ActionLink("Details", "Details", new { id = item.projectId })</button>
+					<button type="button" class="btn btn-outline-info">@Html.ActionLink("Delete", "Delete", new { id = item.projectId })</button>
+				</div>
+			</article>
+		}
+		
+	</main>
+</div>

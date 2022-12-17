@@ -240,6 +240,7 @@
     <Content Include="Content\bootstrap\js\bootstrap.esm.min.js" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\card.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -402,7 +403,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Project\Index.cshtml" />
+    <Content Include="Views\Project\IndexOrigin.cshtml" />
     <Content Include="Views\Project\EditForm.cshtml" />
     <Content Include="Views\Project\Create.cshtml" />
     <Content Include="Views\tasks\Create.cshtml" />
@@ -411,6 +412,7 @@
     <Content Include="Views\tasks\Edit.cshtml" />
     <Content Include="Views\tasks\Index.cshtml" />
     <Content Include="Views\Project\Details.cshtml" />
+    <Content Include="Views\Project\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

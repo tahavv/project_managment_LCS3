@@ -64,7 +64,9 @@
 				@Html.DisplayFor(modelItem => item.workflow)
 			</td>
 			<td>
-				@Html.DisplayFor(modelItem => item.type)
+				<span class="badge bg-success">
+					@Html.DisplayFor(modelItem => item.workflow)
+				</span>
 			</td>
 			<td>
 				@Html.ActionLink("Select", "SelectTask", new { id = item.taskId }) |

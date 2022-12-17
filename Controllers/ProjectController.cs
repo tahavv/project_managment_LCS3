@@ -55,7 +55,7 @@ namespace project.Controllers
                 context.Projects.Add(project);
             }
             context.SaveChanges();
-            return View("Details", project);
+            return Redirect("/project/index");
         }
 
         public ActionResult Edit(int id)
